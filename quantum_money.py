@@ -1,11 +1,11 @@
 from qiskit import QuantumCircuit, Aer, transpile, assemble
 from qiskit.quantum_info import state_fidelity
-import random
+import json
 
 class Issuer:
     def __init__(self):
         self.all_money = {}
-        self.last_money_id = 0 
+        self.last_money_id = sorted(self.all_money.keys)[len(self.all_money.keys)-1] if len(self.all_money) > 0 else 0
 
     def create_money(self, num_qubits):
         #We create a quantum circuit
@@ -42,7 +42,9 @@ class Issuer:
                 qc.y(i)
                 qc.h(i)
 
-        return (self.last_money_id+1, qc.qubits)
+        self.last_money_id += 1
+        self.all_money[self.last_money_id] = qc
+        return (self.last_money_id, qc)
 
     def land_money(self):
         return self.create_money(1)
@@ -72,4 +74,6 @@ class Issuer:
         return False
 
     def save_money_data(self):
-        pass
+        file_path = 'quantum_money.json'
+        with open(file_path, 'w') as file:
+            json.dump({str(key): val.qasm() for key, val in self.all_money.items()}, file)
