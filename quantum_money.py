@@ -52,12 +52,20 @@ class Issuer:
 
         self.last_money_id += 1
         self.all_money[self.last_money_id] = qc
+
+        #Save the new state of the bank
+        self.save_money_data()
+
         return (self.last_money_id, qc)
 
     def land_money(self):
         return self.create_money(1)
     
     def verify_money(self, money_note):
+        #If the input index doesn't exist the money is fake
+        if money_note[0] not in self.all_money:
+            return False
+        
         original = self.all_money[money_note[0]]
 
         simulator = Aer.get_backend('statevector_simulator')
@@ -76,7 +84,6 @@ class Issuer:
 
         # Calculate the state fidelity
         fidelity = state_fidelity(state_vector1, state_vector2)
-        print(fidelity)
 
         if int(fidelity) == 1:
             return True
