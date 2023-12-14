@@ -6,7 +6,6 @@ class Issuer:
     def __init__(self):
         self.file_path = 'quantum_money.json'
         self.all_money = {}
-        self.last_money_id = sorted(self.all_money.keys)[len(self.all_money.keys)-1] if len(self.all_money) > 0 else 0
 
         #Load all the money notes and its corresponding ids
         with open(self.file_path, 'r') as file:
@@ -14,6 +13,8 @@ class Issuer:
 
         for key, qasm_code in loaded_data.items():
             self.all_money[int(key)] = QuantumCircuit.from_qasm_str(qasm_code)
+
+        self.last_money_id = len(self.all_money) if len(self.all_money) > 0 else 0
 
     def create_money(self, num_qubits):
         #We create a quantum circuit
