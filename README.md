@@ -5,6 +5,10 @@ inspired by the quantum properties such as entanglement, superposition etc.
 
 ![quantum_bank](pictures/Immagine.jpg)
 
+Representation of the quantum state of a qubit using bloch's sphere.
+
+![bloch](pictures/bloh.jpg)
+
 ## Three entities in the project
 
 We have three main entities: the Issuer(bank), User and the Falsificator.<br>
