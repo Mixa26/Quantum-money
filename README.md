@@ -22,6 +22,10 @@ A way to protect the bank from money theft is to introduce more qubits(the same 
 a regular computer which hold a quantum state). The chance of one qubit to be guessed is 75%(3/4).<br>
 By adding more qubits we reduce this probability. By having n qubits the probability for the<br>
 quantum state to be guessed is equal to (3/4)^n.<br>
+<br>
+Possible actions:
+
+![actions](pictures/scetch.jpg)
 
 ## The user interface
 
